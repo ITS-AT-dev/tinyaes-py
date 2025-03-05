@@ -39,3 +39,12 @@ cdef class AES:
         if len(data) % AES_KEYLEN:
             raise ValueError(f"Length of plaintext must be multiple of {AES_KEYLEN} bytes")
         tinyaes.AES_CBC_decrypt_buffer(&self._ctx, data, len(data))
+
+    def ECB_encrypt_buffer_inplace_raw(self, data):
+        if len(data) % AES_KEYLEN:
+            raise ValueError(f"Length of plaintext must be multiple of {AES_KEYLEN} bytes")
+        tinyaes.AES_ECB_encrypt(&self._ctx, data)
+    def ECB_decrypt_buffer_inplace_raw(self, data):
+        if len(data) % AES_KEYLEN:
+            raise ValueError(f"Length of plaintext must be multiple of {AES_KEYLEN} bytes")
+        tinyaes.AES_ECB_decrypt(&self._ctx, data)
